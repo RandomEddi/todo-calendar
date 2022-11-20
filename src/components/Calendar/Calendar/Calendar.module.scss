@@ -1,0 +1,52 @@
+@import '../../../styles/variables.scss';
+
+.calendar {
+  margin-top: 30px;
+  .date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & .dateYear {
+      font-size: 30px;
+    }
+    & .dateMonth {
+      font-size: 30px;
+    }
+  }
+  .calendarDays {
+    display: grid;
+    gap: 10px 8px;
+    grid-template: repeat(5, 1fr) / repeat(7, 1fr);
+    & button {
+      text-align: center;
+      user-select: none;
+      background: $black;
+      color: $white;
+      font-weight: bold;
+      font-size: 25px;
+      padding: 10px 6px 6px 6px;
+      border-top-left-radius: 30%;
+      border-top-right-radius: 30%;
+    }
+    & .active {
+      background: $activeDayColor !important;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+      border-top-left-radius: 35%;
+      border-top-right-radius: 35%;
+      transform: scale(1.15);
+    }
+  }
+}
+
+.btnHandlers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  & button {
+    padding: 5px 10px;
+    color: $white;
+    border-radius: 6px;
+    font-size: 20px;
+    background: $black;
+  }
+}

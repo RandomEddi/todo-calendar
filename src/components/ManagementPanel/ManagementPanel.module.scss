@@ -1,0 +1,37 @@
+.managementPanel {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+}
+
+.panelItem {
+  cursor: pointer;
+  position: relative;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+  height: 35px;
+}
+
+.select {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  transform: translateX(0);
+  opacity: 0;
+  transition: all 1s ease;
+}
+.select.active {
+  opacity: 1;
+  transform: translateX(200%);
+}
+
+.selectedItem,
+.selectItem {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
