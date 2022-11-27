@@ -1,4 +1,4 @@
-import ManagementPanel from 'components/ManagementPanel/ManagementPanel'
+import Management from 'components/Management/Management'
 import React, { FC } from 'react'
 import Header from '../Header/Header'
 
@@ -11,7 +11,7 @@ const Main: FC<Props> = ({ children }) => {
     <>
       <Header/>
       <main className='main'>{children}</main>
-      <ManagementPanel />
+      <Management />
     </>
   )
 }

@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import '../../styles/variables.scss';
 
 .calendar {
   margin-top: 30px;
@@ -7,26 +7,34 @@
     flex-direction: column;
     align-items: center;
     & .dateYear {
+      text-shadow: $textShadowBlack;
       font-size: 30px;
     }
     & .dateMonth {
+      text-shadow: $textShadowBlack;
       font-size: 30px;
+      margin-top: 13px;
+      margin-bottom: 18px;
     }
+    
   }
   .calendarDays {
     display: grid;
-    gap: 10px 8px;
+    gap: 15px 12px;
     grid-template: repeat(5, 1fr) / repeat(7, 1fr);
     & button {
+      text-shadow: $textShadowWhite;
       text-align: center;
       user-select: none;
       background: $black;
       color: $white;
       font-weight: bold;
-      font-size: 25px;
-      padding: 10px 6px 6px 6px;
-      border-top-left-radius: 30%;
-      border-top-right-radius: 30%;
+      font-size: 35px;
+      padding: 15px 9px 9px 9px;
+      border-top-left-radius: 33%;
+      border-top-right-radius: 33%;
+      border-bottom-left-radius: 10%;
+      border-bottom-right-radius: 10%;
     }
     & .active {
       background: $activeDayColor !important;
@@ -41,12 +49,12 @@
 .btnHandlers {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 25px;
   & button {
-    padding: 5px 10px;
+    padding: 9px 14px;
     color: $white;
     border-radius: 6px;
-    font-size: 20px;
+    font-size: 24px;
     background: $black;
   }
 }

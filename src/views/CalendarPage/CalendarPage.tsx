@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
-import Layout from '../../Layout/Layout'
+import Layout from '../../components/Layout/Layout'
 import { useSelector, useDispatch } from 'react-redux'
-import styles from './Calendar.module.scss'
-import { RootState } from '../../../store'
-import { dateActions } from '../../../store/slices/date-slice'
-import { calendarActions } from '../../../store/slices/calendar-slice'
-import IDate from '../../../types/IDate'
+import styles from './CalendarPage.module.scss'
+import { RootState } from '../../store'
+import { dateActions } from '../../store/slices/date-slice'
+import { calendarActions } from '../../store/slices/calendar-data-slice'
+import IDate from '../../types/IDate'
 import { useTranslation } from 'react-i18next'
-import RightBar from '../RightBar/RightBar'
+import RightBar from 'components/RightBar/RightBar'
 
-const Calendar: FC = () => {
+const CalendarPage: FC = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const date = useSelector((state: RootState) => state.date)
@@ -46,7 +46,6 @@ const Calendar: FC = () => {
   for (let i = 1; i <= new Date(year, month + 1, 0).getDate(); i++) {
     calendarDaysArray.push(i)
   }
-  console.log('render')
 
   const setActiveDayHandler = (day: number) => {
     if (
@@ -102,4 +101,4 @@ const Calendar: FC = () => {
   )
 }
 
-export default Calendar
+export default CalendarPage

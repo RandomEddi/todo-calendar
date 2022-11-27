@@ -1,4 +1,8 @@
 {
+  "nav": {
+    "calendar": "Calendar",
+    "todos": "All tasks"
+  },
   "calendar": {
     "1": "January",
     "2": "February",
@@ -12,5 +16,11 @@
     "10": "October",
     "11": "November",
     "12": "December"
+  },
+  "rightBar": {
+    "dateNow": "Selected date",
+    "titleInput": "Task name",
+    "descInput": "Task description...",
+    "chooseDateBtn": "Task expiration time"
   }
 }

@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import ITodo from 'types/ITodo'
 import ICalendar from '../../types/ICalendar'
+import IDate from 'types/IDate'
 
 const initialState: ICalendar = {
   activeDay: null,
@@ -10,10 +12,13 @@ const calendarSlice = createSlice({
   name: 'calendarTodo',
   initialState,
   reducers: {
-    addTodo: (state, action) => {
+    addTodo: (state, action: PayloadAction<ITodo>) => {
       state.todos = [action.payload, ...state.todos]
     },
-    setActiveDay: (state, action) => {
+    removeTodo: (state, action: PayloadAction<string>) => {
+      state.todos = state.todos.filter((t) => t.id !== action.payload)
+    },
+    setActiveDay: (state, action: PayloadAction<IDate>) => {
       state.activeDay = {
         day: action.payload.day,
         month: action.payload.month,

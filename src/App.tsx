@@ -1,10 +1,15 @@
 import React from 'react'
-import Calendar from './components/Calendar/Calendar/Calendar'
+import CalendarPage from './views/CalendarPage/CalendarPage'
+import AllTodosPage from './views/AllTodos/AllTodosPage'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
   return (
     <div className='app'>
-      <Calendar />
+      <Routes>
+        <Route path='/' element={<CalendarPage />} />
+        <Route path='/all-todos' element={<AllTodosPage />} />
+      </Routes>
     </div>
   )
 }

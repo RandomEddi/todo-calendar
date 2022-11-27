@@ -1,0 +1,190 @@
+@import '../../styles/variables.scss';
+
+$RightBarWidth: 37vw;
+$RightBarMediumWidth: 32vw;
+$RightBarSmallWidth: 100vw;
+
+.rightBar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 10px;
+    border: 4px solid $white;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    background: $white;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: rgb(31, 31, 31);
+    border-radius: 10px;
+  }
+  overflow-y: auto;
+  height: 100%;
+  background: $black;
+  width: $RightBarWidth;
+  transform: translateX($RightBarWidth);
+  transition: transform 0.7s ease-out;
+}
+
+.rightBarActive {
+  transform: translateX(0);
+}
+
+@media (max-width: 1300px) {
+  .rightBar {
+    width: $RightBarMediumWidth;
+    transform: translateX($RightBarMediumWidth);
+  }
+  .rightBarActive {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .rightBar {
+    width: $RightBarSmallWidth;
+    transform: translateX($RightBarSmallWidth);
+  }
+  .rightBarActive {
+    transform: translateX(0);
+  }
+}
+
+.form {
+  box-shadow: 0 7px 5px rgb(255 255 255 / 30%);
+  & form {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    align-items: center;
+    & input {
+      outline: none;
+      border-radius: 8px;
+      outline: 0;
+      border: 0;
+    }
+
+    & .formBtn {
+      margin: 13px 0;
+      color: $white;
+      background-color: rgb(44, 44, 44);
+      padding: 5px 10px;
+      font-size: 25px;
+      letter-spacing: 1.2px;
+      border-radius: 8px;
+      &:disabled {
+        color: rgb(121, 121, 121);
+      }
+      &:enabled:hover {
+        background-color: rgb(20, 20, 20);
+        transform: scale(1.04);
+        transform: translateY(-1px);
+      }
+    }
+
+    & .calendarBtn {
+      color: $white;
+      margin: 13px 0;
+      border: 1px solid $white;
+      padding: 10px;
+    }
+    & .title {
+      text-align: center;
+      margin-bottom: 17px;
+    }
+
+    & .desc {
+      padding: 5px;
+      font-size: 25px;
+      &::placeholder {
+        padding: 5px;
+      }
+    }
+  }
+}
+
+.activeDate {
+  box-shadow: 0 7px 5px rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  align-items: center;
+  padding: 0 30px;
+  & button {
+    outline: 0;
+    padding: 0;
+    font-size: 35px;
+    user-select: none;
+    color: $white;
+  }
+  & div {
+    color: $white;
+  }
+}
+
+.todoList {
+  display: flex;
+  flex-direction: column;
+  margin: 13px;
+  row-gap: 8px;
+  .todo {
+    display: flex;
+    padding: 4px 8px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid $white;
+    max-width: 75%;
+    margin: 0 auto;
+    color: $white;
+    position: relative;
+    & .delete {
+      position: absolute;
+      top: 5%;
+      right: 2%;
+      cursor: pointer;
+      user-select: none;
+      color: white;
+      font-size: 19px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.974);
+    }
+    & h6 {
+      margin: 0;
+      text-align: center;
+      max-width: 75%;
+      font-size: 18px;
+      font-weight: bold;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    & div {
+      margin-top: 3px;
+      max-width: 95%;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    & span {
+      color: rgb(148, 143, 143);
+      margin-top: 6px;
+      font-size: 17px;
+      align-self: flex-end;
+    }
+  }
+}
