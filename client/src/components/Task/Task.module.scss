@@ -1,0 +1,51 @@
+@import 'styles/variables.scss';
+
+.task {
+  &.expired {
+    background:rgb(255, 110, 110);
+  }
+  position: relative;
+  border: 1px solid $black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .4s linear, box-shadow .4s ease;
+  &:hover {
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    transform: scale(1.04) translateY(-3px);
+  }
+  & > span {
+    &:hover {
+      text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    }
+    position: absolute;
+    transition: text-shadow .2s ease;
+    font-size: 30px;
+    right: 7px;
+    top: -7px;
+    cursor: pointer;
+  }
+  .title {
+    margin: 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & h6 {
+      border-radius: 10px;
+      padding: 3px 18px;
+      font-size: 20px;
+      margin: 0;
+      text-align: center;
+      border: 1px solid $black;
+    }
+  }
+  .desc {
+    word-wrap: break-word;
+  }
+  .time {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 30px;
+  }
+}
