@@ -6,11 +6,15 @@ import { calendarActions } from 'store/slices/calendar-data-slice'
 export const getTodos = (dispatch: AppDispatch) => async () => {
   try {
     await apiInstance.get<ITodo[]>('/api/all-todos').then((resp) => {
-      const data: ITodo[] = resp.data.map((d) => {
-        d.createdAt = new Date(d.createdAt)
-        d.expiresIn = new Date(d.expiresIn)
-        return d
-      })
+      const data: ITodo[] = resp.data
+        .map((d) => {
+          d.createdAt = new Date(d.createdAt)
+          d.expiresIn = new Date(d.expiresIn)
+          return d
+        })
+        .sort((a, b): number => {
+          return b.expiresIn.getTime() - a.expiresIn.getTime()
+        })
 
       dispatch(calendarActions.setTodos(data))
     })
