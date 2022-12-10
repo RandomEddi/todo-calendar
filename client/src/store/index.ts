@@ -10,7 +10,7 @@ const store = configureStore({
     theme: themeSlice.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+    getDefaultMiddleware({ serializableCheck: false })
 })
 
 export type RootState = ReturnType<typeof store.getState>

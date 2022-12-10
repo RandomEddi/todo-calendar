@@ -1,16 +1,23 @@
 @import '../../styles/variables.scss';
 
 .header {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
   height: 10vh;
   background: $white;
   display: flex;
+  &.dark {
+    background: $blackBg;
+    box-shadow: 0 7px 5px rgb(255 255 255 / 30%);
+    nav a {
+      color: $white;
+      text-shadow: 1px 0px 4px rgba(255, 255, 255, 0.5);
+      &.active::before {
+        background: $white;
+        box-shadow: 3px 0 3px white;
+      }
+    }
+  }
   justify-content: center;
   align-items: center;
-  box-shadow: 0 7px 5px rgba(0, 0, 0, 0.3);
   & nav {
     display: flex;
     column-gap: 13px;
@@ -18,6 +25,7 @@
       color: $black;
       text-decoration: none;
       font-size: 22px;
+      text-align: center;
       font-weight: bold;
       text-shadow: 1px 0px 4px rgba(0, 0, 0, 0.3);
     }
@@ -30,9 +38,9 @@
         left: 15%;
         right: 15%;
         background: $black;
-        height: 2px;
         box-shadow: 3px 0 3px black;
-        transition: width .45s ease-in;
+        height: 2px;
+        transition: width 0.45s ease-in;
       }
     }
   }

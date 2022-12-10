@@ -3,7 +3,7 @@ import { ITodo, ICalendar, IDate } from 'types'
 
 const initialState: ICalendar = {
   activeDay: null,
-  todos: [],
+  todos: []
 }
 
 const calendarSlice = createSlice({
@@ -23,13 +23,13 @@ const calendarSlice = createSlice({
       state.activeDay = {
         day: action.payload.day,
         month: action.payload.month,
-        year: action.payload.year,
+        year: action.payload.year
       }
     },
     unSetActiveDay: (state) => {
       state.activeDay = null
-    },
-  },
+    }
+  }
 })
 
 export const calendarActions = calendarSlice.actions

@@ -1,19 +1,23 @@
-import Management from 'components/Management/Management'
+import { themes } from 'types'
+import { ManagementPanel, Header } from 'components'
+import { useAppSelector } from 'hooks'
 import React, { FC } from 'react'
-import Header from '../Header/Header'
 
-type Props = {
+interface Props {
   children: React.ReactNode
 }
 
-const Main: FC<Props> = ({ children }) => {
+export const Layout: FC<Props> = React.memo(({ children }: Props) => {
+  const theme = useAppSelector((state) => state.theme.theme)
   return (
     <>
-      <Header/>
-      <main className='main'>{children}</main>
-      <Management />
+      <Header theme={theme} />
+      <main className={`main ${theme === themes.dark ? ' black-theme' : ''}`}>
+        {children}
+      </main>
+      <ManagementPanel />
     </>
   )
-}
+})
 
-export default Main
+Layout.displayName = 'Layout'

@@ -1,58 +1,64 @@
 import React, { FC } from 'react'
-import Layout from '../../components/Layout/Layout'
-import styles from './CalendarPage.module.scss'
-import { RootState } from '../../store'
-import { dateActions } from '../../store/slices/date-slice'
-import { calendarActions } from '../../store/slices/calendar-data-slice'
 import { useTranslation } from 'react-i18next'
-import RightBar from 'components/RightBar/RightBar'
+import { RootState } from 'store'
+import { dateActions } from 'store/slices/date-slice'
+import { calendarActions } from 'store/slices/calendar-data-slice'
+import { Layout, RightBar } from 'components'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { equalDates } from 'utils'
+import styles from './CalendarPage.module.scss'
+import { ITodo, themes } from 'types'
 
-const CalendarPage: FC = () => {
+interface Props {
+  theme: themes
+}
+
+export const CalendarPage: FC<Props> = React.memo((props: Props) => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const date = useAppSelector((state: RootState) => state.date)
   const calendarStore = useAppSelector((state: RootState) => state.calendar)
+  const { theme } = props
   const { activeDay, todos } = calendarStore
   const { year, month } = date
 
-  const prevMonthHandler = () => {
+  const prevMonthHandler = (): void => {
     dispatch(dateActions.prevMonth())
   }
-  const nextMonthHandler = () => {
+  const nextMonthHandler = (): void => {
     dispatch(dateActions.nextMonth())
   }
 
-  const setActiveDay = (day: number) => {
+  const setActiveDay = (day: number): void => {
     dispatch(
       calendarActions.setActiveDay({
         year,
         month,
-        day,
+        day
       })
     )
   }
 
   interface calendarDays {
     day: number
-    isNotEmpty: boolean
+    isNotEmpty: ITodo | undefined
   }
 
   const calendarDaysArray: calendarDays[] = []
   for (let i = 1; i <= new Date(year, month + 1, 0).getDate(); i++) {
+    const dayIsEmpty = todos.find((t) => {
+      return equalDates(new Date(year, month, i), t.expiresIn)
+    })
     calendarDaysArray.push({
       day: i,
-      isNotEmpty: !!todos.find((t) => {
-        return equalDates(new Date(year, month, i), t.expiresIn)
-      }),
+      isNotEmpty: dayIsEmpty
     })
   }
 
-  const setActiveDayHandler = (day: number) => {
+  const setActiveDayHandler = (day: number): void => {
     if (
       equalDates(
-        activeDay
+        activeDay !== null
           ? new Date(activeDay.year, activeDay.month, activeDay.day)
           : null,
         new Date(year, month, day)
@@ -67,7 +73,11 @@ const CalendarPage: FC = () => {
   return (
     <>
       <Layout>
-        <div className={styles.calendar}>
+        <div
+          className={`${styles.calendar}${
+            theme === themes.dark ? ` ${styles.dark}` : ''
+          }`}
+        >
           <div className={styles.date}>
             <span className={styles.dateYear}>{year}</span>
             <span className={styles.dateMonth}>
@@ -82,14 +92,14 @@ const CalendarPage: FC = () => {
                 }}
                 className={`${
                   equalDates(
-                    activeDay
+                    activeDay !== null
                       ? new Date(activeDay.year, activeDay.month, activeDay.day)
                       : null,
                     new Date(year, month, day.day)
                   )
                     ? styles.active
                     : ''
-                }${day.isNotEmpty ? ' ' + styles.notEmpty : ''}`}
+                }${day.isNotEmpty !== undefined ? ' ' + styles.notEmpty : ''}`}
                 key={day.day}
               >
                 {day.day}
@@ -105,6 +115,6 @@ const CalendarPage: FC = () => {
       <RightBar />
     </>
   )
-}
+})
 
-export default CalendarPage
+CalendarPage.displayName = 'CalendarPage'

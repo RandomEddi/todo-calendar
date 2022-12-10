@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -8,17 +10,16 @@ body {
 }
 
 .app {
+  min-height: 100vh;
   position: relative;
+  &.dark {
+    background: $blackBg;
+  }
 }
 
 main {
-  position: absolute;
-  top: 10vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  left: 0;
-  right: 0;
 }
 
 button {

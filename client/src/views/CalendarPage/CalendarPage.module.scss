@@ -2,6 +2,15 @@
 
 .calendar {
   margin-top: 30px;
+  &.dark {
+    .date {
+      .dateYear,
+      .dateMonth {
+        color: $white;
+        text-shadow: $textShadowWhite;
+      }
+    }
+  }
   .date {
     display: flex;
     flex-direction: column;
@@ -16,7 +25,6 @@
       margin-top: 13px;
       margin-bottom: 18px;
     }
-    
   }
   .calendarDays {
     display: grid;
@@ -37,7 +45,7 @@
       border-bottom-right-radius: 10%;
     }
     & .active {
-      background: $activeDayColor !important;
+      background: $activeDayColor;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
       border-top-left-radius: 35%;
       border-top-right-radius: 35%;

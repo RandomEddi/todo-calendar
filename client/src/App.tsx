@@ -1,22 +1,23 @@
 import React from 'react'
-import CalendarPage from './views/CalendarPage/CalendarPage'
-import AllTodosPage from './views/AllTodos/AllTodosPage'
+import { CalendarPage, AllTodosPage } from 'views'
 import { Route, Routes } from 'react-router-dom'
-import { useAppDispatch } from 'hooks'
+import { useAppDispatch, useAppSelector } from 'hooks'
 import { getTodos } from 'api'
+import { themes } from 'types'
 
-function App() {
+const App = (): JSX.Element => {
   const dispatch = useAppDispatch()
-
+  console.log('asd')
+  const { theme } = useAppSelector((state) => state.theme)
   React.useEffect(() => {
-    getTodos(dispatch)()
+    void getTodos(dispatch)()
   }, [])
 
   return (
-    <div className='app'>
+    <div className={`app${theme === themes.dark ? ' dark' : ''}`}>
       <Routes>
-        <Route path='/' element={<CalendarPage />} />
-        <Route path='/all-todos' element={<AllTodosPage />} />
+        <Route path='/' element={<CalendarPage theme={theme} />} />
+        <Route path='/all-todos' element={<AllTodosPage theme={theme} />} />
       </Routes>
     </div>
   )

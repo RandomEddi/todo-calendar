@@ -1,29 +1,31 @@
 import React, { FC } from 'react'
 import styles from './Task.module.scss'
-import { ITodo } from 'types'
+import { ITodo, themes } from 'types'
 import { dateTransformToString, dateMoreThenDate } from 'utils'
 import { useAppDispatch } from 'hooks'
 import { useTranslation } from 'react-i18next'
 import { deleteTodo } from 'api'
 
-type Props = {
+interface Props {
   info: ITodo
+  theme: themes
 }
 
-const Task: FC<Props> = (props) => {
+export const Task: FC<Props> = React.memo((props: Props) => {
   const dispatch = useAppDispatch()
-  const { createdAt, desc, expiresIn, id, title } = props.info
+  const { theme } = props
+  const { createdAt, desc, expiresIn, id, title } = props?.info
   const { t } = useTranslation()
 
-  const onDeleteTodoHandler = (id: string) => {
-    deleteTodo(dispatch)(id)
+  const onDeleteTodoHandler = (id: string): void => {
+    void deleteTodo(dispatch)(id)
   }
 
   return (
     <div
       className={`${styles.task}${
         dateMoreThenDate(new Date(), expiresIn) ? ' ' + styles.expired : ''
-      }`}
+      }${theme === themes.dark ? ` ${styles.dark}` : ''}`}
     >
       <span onClick={() => onDeleteTodoHandler(id)}>&times;</span>
       <div>
@@ -46,6 +48,6 @@ const Task: FC<Props> = (props) => {
       </div>
     </div>
   )
-}
+})
 
-export default Task
+Task.displayName = 'Task'

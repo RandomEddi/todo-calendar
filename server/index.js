@@ -35,14 +35,20 @@ app.get('/api/all-todos', async (req, res) => {
   res.json(todos)
 })
 
+app.get('api/todo', async (req, res) => {
+  const { date } = req.query
+  const todos = await dbTodos.find({ expiresIn: date }).toArray()
+  res.json(todos)
+})
+
 app.post('/api/add-todo', async (req, res) => {
   await dbTodos.insertOne(req.body)
   res.json(req.body)
 })
 
-app.delete('/api/delete-todo', async(req, res) => {
-  const id = req.query.id
-  await dbTodos.deleteOne({id})
+app.delete('/api/delete-todo', async (req, res) => {
+  const { id } = req.query
+  await dbTodos.deleteOne({ id })
   res.json('success')
 })
 

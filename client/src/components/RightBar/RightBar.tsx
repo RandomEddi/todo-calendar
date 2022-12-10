@@ -10,28 +10,28 @@ import { dateTransformToString, equalDates } from 'utils'
 import { ITodo } from 'types'
 import styles from './RightBar.module.scss'
 
-type IFormValues = {
+interface IFormValues {
   title: string
   desc: string
 }
 
-const RightBar: FC = () => {
+export const RightBar: FC = () => {
   const calendarState = useAppSelector((state: RootState) => state.calendar)
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const { activeDay } = calendarState
 
-  const onDeleteTodoHandler = (id: string) => {
-    deleteTodo(dispatch)(id)
+  const onDeleteTodoHandler = (id: string): void => {
+    void deleteTodo(dispatch)(id)
   }
 
   return (
     <div
       className={`${styles.rightBar}${
-        activeDay ? ' ' + styles.rightBarActive : ''
+        activeDay !== null ? ' ' + styles.rightBarActive : ''
       }`}
     >
-      {activeDay && (
+      {activeDay !== null && (
         <>
           <div className={styles.activeDate}>
             <div>
@@ -48,14 +48,14 @@ const RightBar: FC = () => {
             <Formik
               initialValues={{
                 title: '',
-                desc: '',
+                desc: ''
               }}
               validate={(values) => {
                 const errors: Partial<IFormValues> = {}
-                if (!values.title) {
+                if (values.title === '') {
                   errors.title = 'empty'
                 }
-                if (!values.desc) {
+                if (values.desc === '') {
                   errors.desc = 'empty'
                 }
                 return errors
@@ -64,7 +64,7 @@ const RightBar: FC = () => {
                 values: IFormValues,
                 { setSubmitting, resetForm }: FormikHelpers<IFormValues>
               ) => {
-                let data: ITodo = {
+                const data: ITodo = {
                   title: values.title,
                   desc: values.desc,
                   id: uuid(),
@@ -73,9 +73,9 @@ const RightBar: FC = () => {
                     activeDay.year,
                     activeDay.month,
                     activeDay.day
-                  ),
+                  )
                 }
-                postTodo(dispatch)(data)
+                void postTodo(dispatch)(data)
                 setSubmitting(false)
                 resetForm()
               }}
@@ -85,7 +85,7 @@ const RightBar: FC = () => {
                   <Form className={styles.form}>
                     <Field
                       className={`${styles.title} ${
-                        errors.title && touched.title ? styles.inputFail : ''
+                        errors.title === 'empty' && touched.title === true ? styles.inputFail : ''
                       }`}
                       id='title'
                       name='title'
@@ -94,7 +94,7 @@ const RightBar: FC = () => {
                     />
                     <Field
                       className={`${styles.desc} ${
-                        errors.desc && touched.desc ? styles.inputFail : ''
+                        errors.desc === 'empty' && touched.desc === true ? styles.inputFail : ''
                       }`}
                       id='desc'
                       name='desc'
@@ -113,7 +113,10 @@ const RightBar: FC = () => {
             {calendarState.todos
               .filter((t) => {
                 const date = t.expiresIn
-                return equalDates(new Date(activeDay.year, activeDay.month, activeDay.day), date)
+                return equalDates(
+                  new Date(activeDay.year, activeDay.month, activeDay.day),
+                  date
+                )
               })
               .map((todo) => (
                 <div key={todo.id} className={styles.todo}>
@@ -137,5 +140,3 @@ const RightBar: FC = () => {
     </div>
   )
 }
-
-export default RightBar

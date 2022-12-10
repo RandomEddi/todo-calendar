@@ -3,9 +3,9 @@ import { apiInstance } from 'api'
 import { AppDispatch } from 'store'
 import { calendarActions } from 'store/slices/calendar-data-slice'
 
-export const getTodos = (dispatch: AppDispatch) => () => {
+export const getTodos = (dispatch: AppDispatch) => async () => {
   try {
-    apiInstance.get<ITodo[]>('/api/all-todos').then((resp) => {
+    await apiInstance.get<ITodo[]>('/api/all-todos').then((resp) => {
       const data: ITodo[] = resp.data.map((d) => {
         d.createdAt = new Date(d.createdAt)
         d.expiresIn = new Date(d.expiresIn)
@@ -21,9 +21,9 @@ export const getTodos = (dispatch: AppDispatch) => () => {
   }
 }
 
-export const deleteTodo = (dispatch: AppDispatch) => (id: string) => {
+export const deleteTodo = (dispatch: AppDispatch) => async (id: string) => {
   try {
-    apiInstance.delete(`/api/delete-todo?id=${id}`)
+    await apiInstance.delete(`/api/delete-todo?id=${id}`)
     dispatch(calendarActions.removeTodo(id))
   } catch (e) {
     if (e instanceof Error) {

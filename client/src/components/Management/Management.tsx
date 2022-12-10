@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { isThemeType, themes } from 'types'
 import * as svgs from '../../assets/img/index'
 import styles from './Management.module.scss'
-import Cookie from 'js-cookie'
 import Cookies from 'js-cookie'
 
 interface ILanguage {
@@ -20,15 +19,15 @@ interface ITheme {
 
 const FLAGS: ILanguage[] = [
   { path: svgs.ru, text: 'ru' },
-  { path: svgs.en, text: 'en' },
+  { path: svgs.en, text: 'en' }
 ]
 
 const THEMES: ITheme[] = [
   { path: svgs.moon, text: themes.dark },
-  { path: svgs.sun, text: themes.white },
+  { path: svgs.sun, text: themes.white }
 ]
 
-const ManagementPanel: FC = () => {
+export const ManagementPanel: FC = () => {
   const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
   const selectedTheme = useAppSelector((state) => state.theme.theme)
@@ -40,33 +39,32 @@ const ManagementPanel: FC = () => {
   const [languageIsChanging, setLanguageIsChanging] = useState<boolean>(false)
 
   useEffect(() => {
+    const storageTheme = localStorage.getItem('theme')
     if (
-      localStorage.getItem('theme') &&
-      selectedTheme !== localStorage.getItem('theme')
+      storageTheme !== null &&
+      selectedTheme !== storageTheme &&
+      isThemeType(storageTheme)
     ) {
-      const thm = localStorage.getItem('theme')
-      if (thm && isThemeType(thm)) {
-        dispatch(themeActions.changeTheme(thm))
-      }
+      dispatch(themeActions.changeTheme(storageTheme))
     }
-    if (Cookie.get('i18next') !== selectedLanguage.text) {
-      const lng = FLAGS.find((f) => f.text === Cookie.get('i18next'))
-      if (lng) {
+    if (Cookies.get('i18next') !== selectedLanguage.text) {
+      const lng = FLAGS.find((f) => f.text === Cookies.get('i18next'))
+      if (lng !== undefined) {
         setSelectedLanguage(lng)
       }
     }
   }, [])
 
-  const changeLanguageHandler = (flag: ILanguage) => {
+  const changeLanguageHandler = (flag: ILanguage): void => {
     if (selectedLanguage !== flag) {
       setSelectedLanguage(FLAGS.find((f) => f.text === flag.text) as ILanguage)
-      i18n.changeLanguage(flag.text)
+      void i18n.changeLanguage(flag.text)
       Cookies.set('i18next', flag.text)
     }
     setLanguageIsChanging(false)
   }
 
-  const changeThemeHandler = (theme: ITheme) => {
+  const changeThemeHandler = (theme: ITheme): void => {
     if (selectedTheme !== theme.text) {
       dispatch(themeActions.changeTheme(theme.text))
       localStorage.setItem('theme', theme.text)
@@ -90,7 +88,9 @@ const ManagementPanel: FC = () => {
           <img src={selectedLanguage.path}></img>
         </button>
         <ul
-          className={`${styles.select}${languageIsChanging ? ' ' + styles.active : ''}`}
+          className={`${styles.select}${
+            languageIsChanging ? ' ' + styles.active : ''
+          }`}
         >
           {languageIsChanging &&
             FLAGS.map((flag) => (
@@ -116,7 +116,9 @@ const ManagementPanel: FC = () => {
           <img src={currentTheme?.path}></img>
         </button>
         <ul
-          className={`${styles.select}${themeIsChanging ? ' ' + styles.active : ''}`}
+          className={`${styles.select}${
+            themeIsChanging ? ' ' + styles.active : ''
+          }`}
         >
           {themeIsChanging &&
             THEMES.map((theme) => (
@@ -135,5 +137,3 @@ const ManagementPanel: FC = () => {
     </div>
   )
 }
-
-export default React.memo(ManagementPanel)

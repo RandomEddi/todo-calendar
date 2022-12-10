@@ -3,7 +3,7 @@ import { IDate } from 'types'
 
 const initialState: IDate = {
   year: new Date().getFullYear(),
-  month: new Date().getMonth(),
+  month: new Date().getMonth()
 }
 
 const dateSlice = createSlice({
@@ -25,8 +25,8 @@ const dateSlice = createSlice({
       } else {
         state.month = state.month - 1
       }
-    },
-  },
+    }
+  }
 })
 
 export const dateActions = dateSlice.actions

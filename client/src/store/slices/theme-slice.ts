@@ -6,17 +6,17 @@ interface ITheme {
 }
 
 const initialState: ITheme = {
-  theme: themes.white,
+  theme: themes.white
 }
 
 const themeSlice = createSlice({
   initialState,
   name: 'theme',
   reducers: {
-    changeTheme: (state, action:PayloadAction<themes>) => {
+    changeTheme: (state, action: PayloadAction<themes>) => {
       return { theme: action.payload }
-    },
-  },
+    }
+  }
 })
 
 export default themeSlice
