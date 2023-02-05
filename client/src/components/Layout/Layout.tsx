@@ -1,7 +1,7 @@
 import { themes } from 'types'
+import React, { FC } from 'react'
 import { ManagementPanel, Header } from 'components'
 import { useAppSelector } from 'hooks'
-import React, { FC } from 'react'
 
 interface Props {
   children: React.ReactNode

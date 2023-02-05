@@ -47,7 +47,7 @@ export const ManagementPanel: FC = () => {
     ) {
       dispatch(themeActions.changeTheme(storageTheme))
     }
-    if (Cookies.get('i18next') !== selectedLanguage.text) {
+    if (Cookies.get('i18next') !== selectedLanguage?.text) {
       const lng = FLAGS.find((f) => f.text === Cookies.get('i18next'))
       if (lng !== undefined) {
         setSelectedLanguage(lng)
@@ -85,7 +85,7 @@ export const ManagementPanel: FC = () => {
           }}
           className={styles.selectedItem}
         >
-          <img src={selectedLanguage.path}></img>
+          <img src={selectedLanguage?.path}></img>
         </button>
         <ul
           className={`${styles.select}${

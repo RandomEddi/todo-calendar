@@ -7,7 +7,6 @@ import { themes } from 'types'
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch()
-  console.log('asd')
   const { theme } = useAppSelector((state) => state.theme)
   React.useEffect(() => {
     void getTodos(dispatch)()
